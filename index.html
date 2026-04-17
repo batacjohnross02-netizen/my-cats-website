@@ -11,9 +11,35 @@
         font-family: 'Segoe UI', Arial, sans-serif;
         background: #0f1115;
         color: #e6e6e6;
+        overflow-x: hidden;
     }
 
-    /* 🌍 INTERNATIONAL HEADER */
+    /* 🌟 FLOATING CATS */
+    .floating-cat {
+        position: fixed;
+        bottom: -100px;
+        font-size: 30px;
+        opacity: 0.6;
+        animation: floatUp linear infinite;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    @keyframes floatUp {
+        0% {
+            transform: translateY(0) translateX(0) rotate(0deg);
+            opacity: 0;
+        }
+        10% {
+            opacity: 0.7;
+        }
+        100% {
+            transform: translateY(-110vh) translateX(50px) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    /* 🌍 HEADER */
     header {
         background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
         text-align: center;
@@ -39,12 +65,20 @@
         100% { transform: translate(0,0); }
     }
 
-    header h1 {
-        font-size: 3em;
+    .logo {
+        font-size: 3.2em;
         margin: 0;
-        letter-spacing: 2px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
         position: relative;
         z-index: 2;
+
+        background: linear-gradient(90deg, #7aa2ff, #ffffff, #ff7aa2, #7aa2ff);
+        background-size: 300%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        animation: shine 4s linear infinite, popIn 1s ease-out;
     }
 
     header p {
@@ -53,6 +87,16 @@
         margin-top: 10px;
         position: relative;
         z-index: 2;
+    }
+
+    @keyframes shine {
+        0% { background-position: 0%; }
+        100% { background-position: 300%; }
+    }
+
+    @keyframes popIn {
+        0% { transform: scale(0.5); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
     }
 
     /* NAV */
@@ -103,6 +147,8 @@
         border: 1px solid #2a2f3a;
         box-shadow: 0 5px 15px rgba(0,0,0,0.4);
         transition: 0.3s;
+        position: relative;
+        z-index: 2;
     }
 
     .card:hover {
@@ -133,6 +179,8 @@
     audio {
         display: block;
         margin: 20px auto;
+        position: relative;
+        z-index: 2;
     }
 
     /* FOOTER */
@@ -143,6 +191,8 @@
         color: #e6e6e6;
         margin-top: 40px;
         border-top: 1px solid #2a2f3a;
+        position: relative;
+        z-index: 2;
     }
 </style>
 
@@ -150,44 +200,21 @@
 
 <body>
 
+<!-- 🐱 FLOATING CATS -->
+<div class="floating-cat" style="left:10%; animation-duration: 8s;">🐱</div>
+<div class="floating-cat" style="left:25%; animation-duration: 10s;">🐈</div>
+<div class="floating-cat" style="left:40%; animation-duration: 7s;">🐱</div>
+<div class="floating-cat" style="left:60%; animation-duration: 12s;">🐈</div>
+<div class="floating-cat" style="left:75%; animation-duration: 9s;">🐱</div>
+<div class="floating-cat" style="left:90%; animation-duration: 11s;">🐈</div>
+
+<!-- 🌟 HEADER -->
 <header>
-.logo {
-    font-size: 3.2em;
-    margin: 0;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    position: relative;
-    z-index: 2;
-
-    /* gradient text */
-    background: linear-gradient(90deg, #7aa2ff, #ffffff, #ff7aa2, #7aa2ff);
-    background-size: 300%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    /* animation */
-    animation: shine 4s linear infinite, popIn 1s ease-out;
-}
-
-/* moving gradient effect */
-@keyframes shine {
-    0% { background-position: 0%; }
-    100% { background-position: 300%; }
-}
-
-/* entrance animation */
-@keyframes popIn {
-    0% {
-        transform: scale(0.5);
-        opacity: 0;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
+    <h1 class="logo">🐱 TUKS & FRIENDS 🐱</h1>
+    <p>Premium Cat Collection • Memories • Love • Lifestyle</p>
 </header>
 
+<!-- NAV -->
 <nav>
     <a href="#cats">Cats</a>
     <a href="#about">About</a>
@@ -238,10 +265,11 @@
 <div class="container" id="about">
     <h2>About This Website 🐱</h2>
     <p>
-        This website is dedicated to my cats. It is a personal project made with HTML and CSS to showcase my pets and their personalities.
+        This website is dedicated to my cats. A premium-style personal project with animations, music, and interactive design.
     </p>
 </div>
 
+<!-- FOOTER -->
 <footer>
     <p>© 2026 Tuks & Friends | Made with 🐾 love</p>
 </footer>
