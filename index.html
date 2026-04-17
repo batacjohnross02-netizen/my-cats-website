@@ -13,15 +13,15 @@ body {
     color: #e6e6e6;
 }
 
-/* HEADER */
+/* 📱 MOBILE APP STYLE UI */
 header {
     background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
     text-align: center;
-    padding: 70px 20px;
+    padding: 60px 20px;
 }
 
 .logo {
-    font-size: 3em;
+    font-size: 2.5em;
     background: linear-gradient(90deg,#7aa2ff,#fff,#ff7aa2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -29,11 +29,10 @@ header {
 
 /* NAV */
 nav {
-    background: #1a1d24;
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 12px;
+    justify-content: space-around;
+    background: #1a1d24;
+    padding: 10px;
     position: sticky;
     top: 0;
 }
@@ -42,49 +41,18 @@ nav button {
     background: transparent;
     border: 1px solid #7aa2ff;
     color: white;
-    padding: 8px 15px;
+    padding: 8px 12px;
     border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-nav button:hover {
-    background: #7aa2ff;
-    color: black;
 }
 
 /* SECTIONS */
 .container {
-    max-width: 1000px;
+    max-width: 900px;
     margin: auto;
-    padding: 20px;
+    padding: 15px;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-    gap: 20px;
-}
-
-/* CARD */
-.card {
-    background: #1a1d24;
-    border-radius: 15px;
-    overflow: hidden;
-}
-
-.card img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-}
-
-/* GAME */
-#gameSection {
-    display: none;
-    text-align: center;
-}
-
+/* GAME AREA */
 #playArea {
     width: 100%;
     height: 300px;
@@ -96,18 +64,38 @@ nav button:hover {
 
 .cat {
     position: absolute;
-    font-size: 30px;
+    font-size: 28px;
     cursor: pointer;
 }
 
+/* BOSS CAT */
+.boss {
+    font-size: 45px !important;
+    animation: shake 0.2s infinite;
+}
+
+@keyframes shake {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(10deg); }
+    100% { transform: rotate(-10deg); }
+}
+
 /* BUTTON */
-.startBtn {
-    padding: 10px 20px;
+.btn {
+    padding: 10px 15px;
     background: #7aa2ff;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    margin: 10px;
+    margin: 5px;
+}
+
+/* LEADERBOARD */
+#leaderboard {
+    background: #1a1d24;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
 }
 </style>
 </head>
@@ -116,73 +104,91 @@ nav button:hover {
 
 <header>
     <h1 class="logo">🐱 TUKS & FRIENDS 🐱</h1>
-    <p>Premium Cat Collection</p>
+    <p>Ultimate Cat Game Edition</p>
 </header>
 
-<!-- NAV BUTTONS -->
 <nav>
-    <button onclick="showHome()">🏠 Home</button>
-    <button onclick="showGame()">🎮 Cat Games</button>
+    <button onclick="showGame()">🎮 Game</button>
+    <button onclick="resetHigh()">🏆 Reset High Score</button>
 </nav>
 
-<!-- HOME -->
-<section id="homeSection" class="container">
+<div class="container">
 
-    <h2>Meet My Cats 🐾</h2>
+<!-- GAME -->
+<section id="gameSection">
 
-    <div class="grid">
-        <div class="card"><img src="cats/Tuks.jpg"></div>
-        <div class="card"><img src="cats/Albie.jpg"></div>
-        <div class="card"><img src="cats/Cassie.jpg"></div>
+    <h2>🐱 Catch the Cats Challenge</h2>
+
+    <p>⏱ Time: <span id="time">30</span>s</p>
+    <p>⭐ Score: <span id="score">0</span></p>
+
+    <button class="btn" onclick="startGame()">Start Game</button>
+
+    <div id="playArea"></div>
+
+    <div id="leaderboard">
+        🏆 High Score: <span id="highscore">0</span>
     </div>
 
 </section>
 
-<!-- GAME -->
-<section id="gameSection" class="container">
-
-    <h2>🎮 Catch the Cat Game</h2>
-    <p>Click cats as fast as you can!</p>
-
-    <p>Score: <span id="score">0</span></p>
-
-    <button class="startBtn" onclick="startGame()">Start Game</button>
-
-    <div id="playArea"></div>
-
-</section>
+</div>
 
 <script>
 
 let score = 0;
+let time = 30;
 let gameInterval;
+let timerInterval;
+let bossSpawned = false;
 
-// NAV SWITCH
-function showHome() {
-    document.getElementById("homeSection").style.display = "block";
-    document.getElementById("gameSection").style.display = "none";
+// 🏆 load high score
+let highScore = localStorage.getItem("catHighScore") || 0;
+document.getElementById("highscore").innerText = highScore;
+
+// 🔊 simple beep sound
+function playSound() {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    osc.type = "square";
+    osc.frequency.setValueAtTime(600, ctx.currentTime);
+    osc.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.1);
 }
 
-function showGame() {
-    document.getElementById("homeSection").style.display = "none";
-    document.getElementById("gameSection").style.display = "block";
-}
-
-// GAME
+// 🎮 start game
 function startGame() {
     score = 0;
+    time = 30;
+    bossSpawned = false;
+
     document.getElementById("score").innerText = score;
+    document.getElementById("time").innerText = time;
 
     const area = document.getElementById("playArea");
     area.innerHTML = "";
 
     clearInterval(gameInterval);
+    clearInterval(timerInterval);
 
+    // timer
+    timerInterval = setInterval(() => {
+        time--;
+        document.getElementById("time").innerText = time;
+
+        if (time <= 0) {
+            endGame();
+        }
+    }, 1000);
+
+    // spawn cats
     gameInterval = setInterval(() => {
         spawnCat();
-    }, 800);
+    }, 700);
 }
 
+// 🐱 spawn cat
 function spawnCat() {
     const area = document.getElementById("playArea");
 
@@ -193,10 +199,20 @@ function spawnCat() {
     cat.style.left = Math.random() * 90 + "%";
     cat.style.top = Math.random() * 80 + "%";
 
+    // 🐱 boss cat every 10 score
+    if (score > 0 && score % 10 === 0 && !bossSpawned) {
+        cat.innerText = "🐱👑";
+        cat.classList.add("boss");
+        bossSpawned = true;
+    }
+
     cat.onclick = () => {
         score++;
         document.getElementById("score").innerText = score;
+        playSound();
         cat.remove();
+
+        if (score % 10 !== 0) bossSpawned = false;
     };
 
     area.appendChild(cat);
@@ -204,6 +220,33 @@ function spawnCat() {
     setTimeout(() => {
         cat.remove();
     }, 1500);
+}
+
+// 🏁 end game
+function endGame() {
+    clearInterval(gameInterval);
+    clearInterval(timerInterval);
+
+    if (score > highScore) {
+        highScore = score;
+        localStorage.setItem("catHighScore", highScore);
+        document.getElementById("highscore").innerText = highScore;
+        alert("🏆 NEW HIGH SCORE: " + score);
+    } else {
+        alert("Game Over! Score: " + score);
+    }
+}
+
+// reset leaderboard
+function resetHigh() {
+    localStorage.removeItem("catHighScore");
+    highScore = 0;
+    document.getElementById("highscore").innerText = 0;
+}
+
+// show game (future expand)
+function showGame() {
+    alert("Game is already visible 🐱");
 }
 
 </script>
