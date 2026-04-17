@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Cat Website 🐱</title>
+<title>My Cats 🐱</title>
 
 <style>
     body {
         margin: 0;
         font-family: Arial, sans-serif;
-        background: linear-gradient(to bottom, #fff7f0, #eaf6ff);
-        color: #333;
+        background: #0f1115;
+        color: #e6e6e6;
     }
 
     header {
-        background: linear-gradient(135deg, #ff7aa2, #ffb86b);
-        color: white;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
         text-align: center;
         padding: 40px 20px;
+        color: white;
     }
 
     header h1 {
@@ -26,26 +26,32 @@
     }
 
     nav {
-        background: #333;
+        background: #1a1d24;
         text-align: center;
         padding: 10px;
+        border-bottom: 1px solid #2a2f3a;
     }
 
     nav a {
-        color: white;
+        color: #e6e6e6;
         text-decoration: none;
         margin: 0 15px;
         font-weight: bold;
     }
 
     nav a:hover {
-        color: #ffb86b;
+        color: #7aa2ff;
     }
 
     .container {
         max-width: 1000px;
         margin: auto;
         padding: 20px;
+    }
+
+    h2 {
+        color: #ffffff;
+        margin-bottom: 15px;
     }
 
     .grid {
@@ -55,10 +61,11 @@
     }
 
     .card {
-        background: white;
+        background: #1a1d24;
         border-radius: 15px;
         overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border: 1px solid #2a2f3a;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.4);
         transition: 0.3s;
     }
 
@@ -79,18 +86,20 @@
     .badge {
         display: inline-block;
         padding: 5px 10px;
-        background: #ff7aa2;
-        color: white;
+        background: #7aa2ff;
+        color: #0f1115;
         border-radius: 20px;
         font-size: 12px;
+        margin-top: 5px;
     }
 
     footer {
         text-align: center;
         padding: 20px;
-        background: #333;
-        color: white;
+        background: #1a1d24;
+        color: #e6e6e6;
         margin-top: 40px;
+        border-top: 1px solid #2a2f3a;
     }
 
     audio {
@@ -98,13 +107,13 @@
         margin: 20px auto;
     }
 </style>
-</head>
 
+</head>
 <body>
 
 <header>
-    <h1>🐱 My Cats Website</h1>
-    <p>My cute furry babies 💖</p>
+    <h1>🐱 My Cat Family</h1>
+    <p>My cute furry babies in one place 💖</p>
 </header>
 
 <nav>
@@ -112,11 +121,12 @@
     <a href="#about">About</a>
 </nav>
 
-<!-- 🎵 MUSIC -->
+<!-- 🎵 BACKGROUND MUSIC -->
 <audio autoplay loop controls>
     <source src="music/catsong.mp3" type="audio/mpeg">
 </audio>
 
+<!-- 🐱 CATS SECTION -->
 <div class="container" id="cats">
     <h2>Meet My Cats 🐾</h2>
 
@@ -127,7 +137,7 @@
             <div class="card-content">
                 <h3>Mochi</h3>
                 <span class="badge">Sleepy King 😴</span>
-                <p>Loves sleeping all day.</p>
+                <p>Loves sleeping all day and eating snacks.</p>
             </div>
         </div>
 
@@ -136,7 +146,7 @@
             <div class="card-content">
                 <h3>Luna</h3>
                 <span class="badge">Playful Queen 🎾</span>
-                <p>Always running around and playing.</p>
+                <p>Always running around and playing with toys.</p>
             </div>
         </div>
 
@@ -145,20 +155,24 @@
             <div class="card-content">
                 <h3>Shadow</h3>
                 <span class="badge">Silent Ninja 🥷</span>
-                <p>Quiet but always watching.</p>
+                <p>Quiet but always watching everything.</p>
             </div>
         </div>
 
     </div>
 </div>
 
+<!-- 🐱 ABOUT -->
 <div class="container" id="about">
-    <h2>About 🐱</h2>
-    <p>This website is dedicated to my cats. They are my happiness every day.</p>
+    <h2>About This Website 🐱</h2>
+    <p>
+        This is my personal cat website made with HTML and CSS.
+        It shows my adorable cats and plays relaxing music while you browse.
+    </p>
 </div>
 
 <footer>
-    <p>© 2026 My Cat Website</p>
+    <p>© 2026 My Cat Website | Made with 🐾 and love</p>
 </footer>
 
 </body>
