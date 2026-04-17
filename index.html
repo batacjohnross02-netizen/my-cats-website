@@ -151,8 +151,41 @@
 <body>
 
 <header>
-    <h1>🐱 TUKS & FRIENDS 🐱</h1>
-    <p>Premium Cat Collection • Memories • Love • Lifestyle</p>
+.logo {
+    font-size: 3.2em;
+    margin: 0;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+
+    /* gradient text */
+    background: linear-gradient(90deg, #7aa2ff, #ffffff, #ff7aa2, #7aa2ff);
+    background-size: 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* animation */
+    animation: shine 4s linear infinite, popIn 1s ease-out;
+}
+
+/* moving gradient effect */
+@keyframes shine {
+    0% { background-position: 0%; }
+    100% { background-position: 300%; }
+}
+
+/* entrance animation */
+@keyframes popIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
 </header>
 
 <nav>
