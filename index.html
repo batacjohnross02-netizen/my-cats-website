@@ -14,43 +14,42 @@ body {
     overflow-x: hidden;
 }
 
-/* 🔥 NETFLIX LOADING SCREEN */
+/* 🔥 LOADER */
 #loader {
     position: fixed;
     width: 100%;
     height: 100vh;
-    background: #000;
+    background: black;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     z-index: 9999;
     animation: fadeOut 2s ease forwards;
-    animation-delay: 3s;
+    animation-delay: 2.5s;
 }
 
 #loader h1 {
     color: #7aa2ff;
-    font-size: 2.5em;
-    letter-spacing: 3px;
-    animation: pulse 1s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.1); opacity: 0.7; }
-    100% { transform: scale(1); opacity: 1; }
 }
 
 @keyframes fadeOut {
     to { opacity: 0; visibility: hidden; }
 }
 
+/* 🐱 CURSOR CAT */
+#cursor-cat {
+    position: fixed;
+    font-size: 28px;
+    pointer-events: none;
+    z-index: 1000;
+}
+
 /* 🐱 FLOATING CATS */
 .floating-cat {
     position: fixed;
     bottom: -100px;
-    font-size: 28px;
+    font-size: 25px;
     opacity: 0.5;
     animation: floatUp linear infinite;
     pointer-events: none;
@@ -59,24 +58,14 @@ body {
 @keyframes floatUp {
     0% { transform: translateY(0); opacity: 0; }
     10% { opacity: 0.7; }
-    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
-}
-
-/* 🐱 CURSOR FOLLOW CAT */
-#cursor-cat {
-    position: fixed;
-    font-size: 30px;
-    pointer-events: none;
-    z-index: 1000;
-    transition: transform 0.05s linear;
+    100% { transform: translateY(-110vh); opacity: 0; }
 }
 
 /* HEADER */
 header {
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
     text-align: center;
-    padding: 80px 20px;
-    position: relative;
+    padding: 70px;
 }
 
 .logo {
@@ -84,12 +73,6 @@ header {
     background: linear-gradient(90deg,#7aa2ff,#fff,#ff7aa2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: shine 4s infinite linear;
-}
-
-@keyframes shine {
-    0% { background-position: 0%; }
-    100% { background-position: 300%; }
 }
 
 /* NAV */
@@ -101,14 +84,44 @@ nav {
 
 nav a {
     color: white;
-    margin: 0 15px;
+    margin: 0 10px;
     text-decoration: none;
 }
 
-/* CONTENT */
+/* GAME AREA */
+#game {
+    text-align: center;
+    padding: 40px;
+}
+
+#playArea {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background: #1a1d24;
+    margin-top: 20px;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.cat {
+    position: absolute;
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button {
+    padding: 10px 20px;
+    background: #7aa2ff;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+/* CATS GRID */
 .container {
-    max-width: 1000px;
-    margin: auto;
     padding: 20px;
 }
 
@@ -118,39 +131,16 @@ nav a {
     gap: 20px;
 }
 
-/* CARD */
 .card {
     background: #1a1d24;
     border-radius: 15px;
     overflow: hidden;
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: scale(1.03);
 }
 
 .card img {
     width: 100%;
-    height: 220px;
+    height: 200px;
     object-fit: cover;
-}
-
-.card-content {
-    padding: 15px;
-}
-
-.badge {
-    background: #7aa2ff;
-    color: #000;
-    padding: 5px 10px;
-    border-radius: 20px;
-}
-
-/* AUDIO */
-audio {
-    display: block;
-    margin: 20px auto;
 }
 
 /* FOOTER */
@@ -170,15 +160,13 @@ footer {
     <p>Loading cats...</p>
 </div>
 
-<!-- 🐱 CURSOR CAT -->
+<!-- 🐱 CURSOR -->
 <div id="cursor-cat">🐱</div>
 
-<!-- 🐱 FLOATING CATS -->
+<!-- FLOATING CATS -->
 <div class="floating-cat" style="left:10%; animation-duration:8s;">🐱</div>
-<div class="floating-cat" style="left:30%; animation-duration:10s;">🐈</div>
-<div class="floating-cat" style="left:50%; animation-duration:7s;">🐱</div>
-<div class="floating-cat" style="left:70%; animation-duration:12s;">🐈</div>
-<div class="floating-cat" style="left:90%; animation-duration:9s;">🐱</div>
+<div class="floating-cat" style="left:40%; animation-duration:10s;">🐈</div>
+<div class="floating-cat" style="left:70%; animation-duration:7s;">🐱</div>
 
 <!-- HEADER -->
 <header>
@@ -188,52 +176,30 @@ footer {
 
 <!-- NAV -->
 <nav>
+    <a href="#game">Game</a>
     <a href="#cats">Cats</a>
-    <a href="#about">About</a>
 </nav>
 
-<!-- MUSIC -->
-<audio controls loop>
-    <source src="catsong.mp3" type="audio/mpeg">
-</audio>
+<!-- 🎮 MINI CAT GAME -->
+<section id="game">
+    <h2>🎮 Catch the Cats Game</h2>
+    <p>Click the cats as fast as you can!</p>
+    <p>Score: <span id="score">0</span></p>
 
-<!-- CATS -->
+    <button onclick="startGame()">Start Game</button>
+
+    <div id="playArea"></div>
+</section>
+
+<!-- 🐱 CATS -->
 <div class="container" id="cats">
     <h2>Meet My Cats 🐾</h2>
 
     <div class="grid">
-
-        <div class="card">
-            <img src="cats/Tuks.jpg">
-            <div class="card-content">
-                <h3>Tuks</h3>
-                <span class="badge">Sleepy 😴</span>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="cats/Albie.jpg">
-            <div class="card-content">
-                <h3>Albie</h3>
-                <span class="badge">Chaos 🧡</span>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="cats/Cassie.jpg">
-            <div class="card-content">
-                <h3>Cassie</h3>
-                <span class="badge">Ninja 🥷</span>
-            </div>
-        </div>
-
+        <div class="card"><img src="cats/Tuks.jpg"></div>
+        <div class="card"><img src="cats/Albie.jpg"></div>
+        <div class="card"><img src="cats/Cassie.jpg"></div>
     </div>
-</div>
-
-<!-- ABOUT -->
-<div class="container" id="about">
-    <h2>About</h2>
-    <p>My cats live here rent-free 🐱</p>
 </div>
 
 <footer>
@@ -242,18 +208,52 @@ footer {
 
 <!-- SCRIPT -->
 <script>
-// 🔥 loader remove after 3s
-setTimeout(() => {
-    document.getElementById("loader").style.display = "none";
-}, 3000);
 
-// 🐱 cursor follow cat
-const cursorCat = document.getElementById("cursor-cat");
+let score = 0;
+let gameInterval;
 
+function startGame() {
+    score = 0;
+    document.getElementById("score").innerText = score;
+
+    const area = document.getElementById("playArea");
+    area.innerHTML = "";
+
+    gameInterval = setInterval(() => {
+        spawnCat();
+    }, 800);
+}
+
+function spawnCat() {
+    const area = document.getElementById("playArea");
+
+    const cat = document.createElement("div");
+    cat.classList.add("cat");
+    cat.innerText = "🐱";
+
+    cat.style.left = Math.random() * 90 + "%";
+    cat.style.top = Math.random() * 80 + "%";
+
+    cat.onclick = () => {
+        score++;
+        document.getElementById("score").innerText = score;
+        cat.remove();
+    };
+
+    area.appendChild(cat);
+
+    setTimeout(() => {
+        cat.remove();
+    }, 1500);
+}
+
+// cursor follow cat
 document.addEventListener("mousemove", (e) => {
-    cursorCat.style.left = e.clientX + 10 + "px";
-    cursorCat.style.top = e.clientY + 10 + "px";
+    const c = document.getElementById("cursor-cat");
+    c.style.left = e.clientX + 10 + "px";
+    c.style.top = e.clientY + 10 + "px";
 });
+
 </script>
 
 </body>
