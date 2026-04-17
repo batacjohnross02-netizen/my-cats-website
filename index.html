@@ -3,33 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Cats 🐱</title>
+<title>Tuks & Friends 🐱</title>
 
 <style>
     body {
         margin: 0;
-        font-family: Arial, sans-serif;
+        font-family: 'Segoe UI', Arial, sans-serif;
         background: #0f1115;
         color: #e6e6e6;
     }
 
+    /* 🌍 INTERNATIONAL HEADER */
     header {
-        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
         text-align: center;
-        padding: 40px 20px;
-        color: white;
+        padding: 80px 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 60%);
+        animation: glow 6s linear infinite;
+    }
+
+    @keyframes glow {
+        0% { transform: translate(0,0); }
+        50% { transform: translate(40px, 40px); }
+        100% { transform: translate(0,0); }
     }
 
     header h1 {
+        font-size: 3em;
         margin: 0;
-        font-size: 2.5em;
+        letter-spacing: 2px;
+        position: relative;
+        z-index: 2;
     }
 
+    header p {
+        font-size: 1.2em;
+        opacity: 0.85;
+        margin-top: 10px;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* NAV */
     nav {
         background: #1a1d24;
         text-align: center;
-        padding: 10px;
+        padding: 12px;
         border-bottom: 1px solid #2a2f3a;
+        position: sticky;
+        top: 0;
+        z-index: 10;
     }
 
     nav a {
@@ -43,6 +77,7 @@
         color: #7aa2ff;
     }
 
+    /* CONTENT */
     .container {
         max-width: 1000px;
         margin: auto;
@@ -51,15 +86,16 @@
 
     h2 {
         color: #ffffff;
-        margin-bottom: 15px;
     }
 
+    /* GRID */
     .grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
     }
 
+    /* CARD */
     .card {
         background: #1a1d24;
         border-radius: 15px;
@@ -93,6 +129,13 @@
         margin-top: 5px;
     }
 
+    /* AUDIO */
+    audio {
+        display: block;
+        margin: 20px auto;
+    }
+
+    /* FOOTER */
     footer {
         text-align: center;
         padding: 20px;
@@ -101,19 +144,15 @@
         margin-top: 40px;
         border-top: 1px solid #2a2f3a;
     }
-
-    audio {
-        display: block;
-        margin: 20px auto;
-    }
 </style>
 
 </head>
+
 <body>
 
 <header>
-    <h1>🐱 TUKS AND FRIENDS 🐱</h1>
-    <p>My cute furry babies in one place 💖</p>
+    <h1>🐱 TUKS & FRIENDS 🐱</h1>
+    <p>Premium Cat Collection • Memories • Love • Lifestyle</p>
 </header>
 
 <nav>
@@ -121,11 +160,12 @@
     <a href="#about">About</a>
 </nav>
 
-<!-- 🎵 BACKGROUND MUSIC -->
+<!-- 🎵 MUSIC -->
 <audio controls loop>
     <source src="catsong.mp3" type="audio/mpeg">
 </audio>
-<!-- 🐱 CATS SECTION -->
+
+<!-- 🐱 CATS -->
 <div class="container" id="cats">
     <h2>Meet My Cats 🐾</h2>
 
@@ -144,17 +184,17 @@
             <img src="cats/Albie.jpg" alt="Albie">
             <div class="card-content">
                 <h3>Albie</h3>
-                <span class="badge">Playful Orange King 🎾</span>
-                <p>Always running around and playing with toys.</p>
+                <span class="badge">Orange King 🧡</span>
+                <p>Always running around and being chaotic.</p>
             </div>
         </div>
 
         <div class="card">
-            <img src="cats/Cassie.jpg" alt="Shadow">
+            <img src="cats/Cassie.jpg" alt="Cassie">
             <div class="card-content">
                 <h3>Cassie</h3>
                 <span class="badge">Silent Ninja 🥷</span>
-                <p>Quiet but always watching everything.</p>
+                <p>Quiet but always judging everything.</p>
             </div>
         </div>
 
@@ -165,13 +205,12 @@
 <div class="container" id="about">
     <h2>About This Website 🐱</h2>
     <p>
-        This is my personal cat website made with HTML and CSS.
-        It shows my adorable cats and plays relaxing music while you browse.
+        This website is dedicated to my cats. It is a personal project made with HTML and CSS to showcase my pets and their personalities.
     </p>
 </div>
 
 <footer>
-    <p>© 2026 My Cat Website | Made with 🐾 and love</p>
+    <p>© 2026 Tuks & Friends | Made with 🐾 love</p>
 </footer>
 
 </body>
