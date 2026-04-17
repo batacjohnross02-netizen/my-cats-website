@@ -11,61 +11,13 @@ body {
     font-family: 'Segoe UI', Arial;
     background: #0f1115;
     color: #e6e6e6;
-    overflow-x: hidden;
-}
-
-/* 🔥 LOADER */
-#loader {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    background: black;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    animation: fadeOut 2s ease forwards;
-    animation-delay: 2.5s;
-}
-
-#loader h1 {
-    color: #7aa2ff;
-}
-
-@keyframes fadeOut {
-    to { opacity: 0; visibility: hidden; }
-}
-
-/* 🐱 CURSOR CAT */
-#cursor-cat {
-    position: fixed;
-    font-size: 28px;
-    pointer-events: none;
-    z-index: 1000;
-}
-
-/* 🐱 FLOATING CATS */
-.floating-cat {
-    position: fixed;
-    bottom: -100px;
-    font-size: 25px;
-    opacity: 0.5;
-    animation: floatUp linear infinite;
-    pointer-events: none;
-}
-
-@keyframes floatUp {
-    0% { transform: translateY(0); opacity: 0; }
-    10% { opacity: 0.7; }
-    100% { transform: translateY(-110vh); opacity: 0; }
 }
 
 /* HEADER */
 header {
     background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
     text-align: center;
-    padding: 70px;
+    padding: 70px 20px;
 }
 
 .logo {
@@ -78,50 +30,33 @@ header {
 /* NAV */
 nav {
     background: #1a1d24;
-    text-align: center;
-    padding: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 12px;
+    position: sticky;
+    top: 0;
 }
 
-nav a {
+nav button {
+    background: transparent;
+    border: 1px solid #7aa2ff;
     color: white;
-    margin: 0 10px;
-    text-decoration: none;
-}
-
-/* GAME AREA */
-#game {
-    text-align: center;
-    padding: 40px;
-}
-
-#playArea {
-    position: relative;
-    width: 100%;
-    height: 300px;
-    background: #1a1d24;
-    margin-top: 20px;
-    overflow: hidden;
-    border-radius: 15px;
-}
-
-.cat {
-    position: absolute;
-    font-size: 30px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-button {
-    padding: 10px 20px;
-    background: #7aa2ff;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
+    padding: 8px 15px;
     border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-/* CATS GRID */
+nav button:hover {
+    background: #7aa2ff;
+    color: black;
+}
+
+/* SECTIONS */
 .container {
+    max-width: 1000px;
+    margin: auto;
     padding: 20px;
 }
 
@@ -131,6 +66,7 @@ button {
     gap: 20px;
 }
 
+/* CARD */
 .card {
     background: #1a1d24;
     border-radius: 15px;
@@ -139,60 +75,59 @@ button {
 
 .card img {
     width: 100%;
-    height: 200px;
+    height: 220px;
     object-fit: cover;
 }
 
-/* FOOTER */
-footer {
+/* GAME */
+#gameSection {
+    display: none;
     text-align: center;
-    padding: 20px;
+}
+
+#playArea {
+    width: 100%;
+    height: 300px;
     background: #1a1d24;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cat {
+    position: absolute;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* BUTTON */
+.startBtn {
+    padding: 10px 20px;
+    background: #7aa2ff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🔥 LOADER -->
-<div id="loader">
-    <h1>🐱 TUKS & FRIENDS</h1>
-    <p>Loading cats...</p>
-</div>
-
-<!-- 🐱 CURSOR -->
-<div id="cursor-cat">🐱</div>
-
-<!-- FLOATING CATS -->
-<div class="floating-cat" style="left:10%; animation-duration:8s;">🐱</div>
-<div class="floating-cat" style="left:40%; animation-duration:10s;">🐈</div>
-<div class="floating-cat" style="left:70%; animation-duration:7s;">🐱</div>
-
-<!-- HEADER -->
 <header>
     <h1 class="logo">🐱 TUKS & FRIENDS 🐱</h1>
     <p>Premium Cat Collection</p>
 </header>
 
-<!-- NAV -->
+<!-- NAV BUTTONS -->
 <nav>
-    <a href="#game">Game</a>
-    <a href="#cats">Cats</a>
+    <button onclick="showHome()">🏠 Home</button>
+    <button onclick="showGame()">🎮 Cat Games</button>
 </nav>
 
-<!-- 🎮 MINI CAT GAME -->
-<section id="game">
-    <h2>🎮 Catch the Cats Game</h2>
-    <p>Click the cats as fast as you can!</p>
-    <p>Score: <span id="score">0</span></p>
+<!-- HOME -->
+<section id="homeSection" class="container">
 
-    <button onclick="startGame()">Start Game</button>
-
-    <div id="playArea"></div>
-</section>
-
-<!-- 🐱 CATS -->
-<div class="container" id="cats">
     <h2>Meet My Cats 🐾</h2>
 
     <div class="grid">
@@ -200,24 +135,48 @@ footer {
         <div class="card"><img src="cats/Albie.jpg"></div>
         <div class="card"><img src="cats/Cassie.jpg"></div>
     </div>
-</div>
 
-<footer>
-    <p>© 2026 Tuks & Friends</p>
-</footer>
+</section>
 
-<!-- SCRIPT -->
+<!-- GAME -->
+<section id="gameSection" class="container">
+
+    <h2>🎮 Catch the Cat Game</h2>
+    <p>Click cats as fast as you can!</p>
+
+    <p>Score: <span id="score">0</span></p>
+
+    <button class="startBtn" onclick="startGame()">Start Game</button>
+
+    <div id="playArea"></div>
+
+</section>
+
 <script>
 
 let score = 0;
 let gameInterval;
 
+// NAV SWITCH
+function showHome() {
+    document.getElementById("homeSection").style.display = "block";
+    document.getElementById("gameSection").style.display = "none";
+}
+
+function showGame() {
+    document.getElementById("homeSection").style.display = "none";
+    document.getElementById("gameSection").style.display = "block";
+}
+
+// GAME
 function startGame() {
     score = 0;
     document.getElementById("score").innerText = score;
 
     const area = document.getElementById("playArea");
     area.innerHTML = "";
+
+    clearInterval(gameInterval);
 
     gameInterval = setInterval(() => {
         spawnCat();
@@ -246,13 +205,6 @@ function spawnCat() {
         cat.remove();
     }, 1500);
 }
-
-// cursor follow cat
-document.addEventListener("mousemove", (e) => {
-    const c = document.getElementById("cursor-cat");
-    c.style.left = e.clientX + 10 + "px";
-    c.style.top = e.clientY + 10 + "px";
-});
 
 </script>
 
