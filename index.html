@@ -14,7 +14,7 @@ body {
     overflow-x: hidden;
 }
 
-/* 🌌 GALAXY BACKGROUND (NEW) */
+/* BACKGROUND */
 body::before {
     content: "";
     position: fixed;
@@ -26,7 +26,6 @@ body::before {
 }
 
 @keyframes moveBG {
-    0% { transform: translate(0,0); }
     100% { transform: translate(-20%, -20%); }
 }
 
@@ -44,7 +43,7 @@ header {
     -webkit-text-fill-color: transparent;
 }
 
-/* NAV (UNCHANGED STRUCTURE) */
+/* NAV */
 nav {
     display: flex;
     justify-content: center;
@@ -63,7 +62,6 @@ nav button {
     color: white;
     border-radius: 10px;
     cursor: pointer;
-    transition: 0.3s;
 }
 
 nav button:hover {
@@ -71,41 +69,29 @@ nav button:hover {
     color: black;
 }
 
-/* SECTIONS */
+/* CONTAINER */
 .container {
     max-width: 1000px;
     margin: auto;
     padding: 20px;
-    animation: fadeIn 0.5s ease;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* HOME GRID */
+/* GRID */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
     gap: 15px;
 }
 
-.card {
-    background: #1a1d24;
-    border-radius: 15px;
-    overflow: hidden;
-    transition: 0.3s;
+.card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
 }
 
-.card:hover {
-    transform: scale(1.03);
-}
-
-/* GAME AREA */
-#gameSection {
-    display: none;
-}
+/* GAME */
+#gameSection { display: none; }
 
 #gameArea {
     width: 100%;
@@ -116,12 +102,10 @@ nav button:hover {
     overflow: hidden;
 }
 
-/* CAT SKINS */
 .cat {
     position: absolute;
     font-size: 28px;
     cursor: pointer;
-    transition: 0.1s;
 }
 
 .boss {
@@ -130,11 +114,9 @@ nav button:hover {
 }
 
 @keyframes shake {
-    0% { transform: rotate(0); }
     50% { transform: rotate(10deg); }
 }
 
-/* PARTICLES */
 .particle {
     position: absolute;
     animation: pop 0.5s ease-out forwards;
@@ -144,20 +126,16 @@ nav button:hover {
     to { transform: scale(2); opacity: 0; }
 }
 
-/* MOBILE STYLE SCORE PANEL */
 .panel {
     text-align: center;
     margin: 10px;
-    font-size: 14px;
 }
 
-/* LEADERBOARD */
 #leaderboard {
     text-align: center;
     padding: 10px;
     background: #1a1d24;
     border-radius: 10px;
-    margin-top: 10px;
 }
 </style>
 </head>
@@ -168,121 +146,119 @@ nav button:hover {
     <h1 class="logo">🐱 TUKS & FRIENDS 🐱</h1>
 </header>
 
-<!-- NAV (KEEP SAME STRUCTURE) -->
 <nav>
     <button onclick="showHome()">🏠 Home</button>
     <button onclick="showGame()">🎮 Cat Games</button>
 </nav>
 
-<!-- HOME -->
 <section id="homeSection" class="container">
     <h2>Meet My Cats 🐾</h2>
 
     <div class="grid">
-        <div class="card"><img src="cats/Tuks.jpg"></div>
-        <div class="card"><img src="cats/Albie.jpg"></div>
-        <div class="card"><img src="cats/Cassie.jpg"></div>
+        <div class="card"><img src="cats/Tuks.jpg" onerror="this.src='https://placekitten.com/400/300'"></div>
+        <div class="card"><img src="cats/Albie.jpg" onerror="this.src='https://placekitten.com/401/300'"></div>
+        <div class="card"><img src="cats/Cassie.jpg" onerror="this.src='https://placekitten.com/402/300'"></div>
     </div>
 </section>
 
-<!-- GAME -->
 <section id="gameSection" class="container">
 
-    <h2>🐱 Cat Games</h2>
+<h2>🐱 Cat Games</h2>
 
-    <div class="panel">
-        Score: <span id="score">0</span> |
-        Time: <span id="time">30</span>
-    </div>
+<div class="panel">
+Score: <span id="score">0</span> |
+Time: <span id="time">30</span>
+</div>
 
-    <div class="panel">
-        <button onclick="startGame()">Start</button>
-        <button onclick="toggleMusic()">🎵</button>
+<div class="panel">
+<button onclick="startGame()">Start</button>
+<button onclick="toggleMusic()">🎵</button>
 
-        <select onchange="setSpeed(this.value)">
-            <option value="800">Easy</option>
-            <option value="500">Medium</option>
-            <option value="300">Hard</option>
-        </select>
-    </div>
+<select onchange="setSpeed(this.value)">
+<option value="800">Easy</option>
+<option value="500">Medium</option>
+<option value="300">Hard</option>
+</select>
+</div>
 
-    <div id="gameArea"></div>
+<div id="gameArea"></div>
 
-    <div id="leaderboard">
-        🏆 High Score: <span id="high">0</span>
-    </div>
+<div id="leaderboard">
+🏆 High Score: <span id="high">0</span>
+</div>
 
-    <div class="panel">
-        🏅 <span id="achievements"></span>
-    </div>
+<div class="panel">
+🏅 <span id="achievements"></span>
+</div>
 
 </section>
 
-<!-- MUSIC -->
 <audio id="music" loop>
-    <source src="catsong.mp3">
+<source src="catsong.mp3">
 </audio>
 
 <script>
-
 let score = 0;
 let time = 30;
 let speed = 800;
-let game;
-let timer;
+let game, timer;
 let musicOn = false;
-let unlocked = [];
 
+let unlocked = [];
 let high = localStorage.getItem("highScore") || 0;
 document.getElementById("high").innerText = high;
 
 /* NAV */
 function showHome(){
-    document.getElementById("homeSection").style.display = "block";
-    document.getElementById("gameSection").style.display = "none";
+    homeSection.style.display = "block";
+    gameSection.style.display = "none";
 }
 
 function showGame(){
-    document.getElementById("homeSection").style.display = "none";
-    document.getElementById("gameSection").style.display = "block";
+    homeSection.style.display = "none";
+    gameSection.style.display = "block";
 }
 
 /* START */
 function startGame(){
     score = 0;
     time = 30;
+    unlocked = [];
 
-    document.getElementById("score").innerText = score;
-    document.getElementById("time").innerText = time;
+    scoreEl.innerText = score;
+    timeEl.innerText = time;
+    achievements.innerText = "";
+
+    gameArea.innerHTML = "";
 
     clearInterval(game);
     clearInterval(timer);
 
     timer = setInterval(()=>{
         time--;
-        document.getElementById("time").innerText = time;
+        timeEl.innerText = time;
         if(time<=0) endGame();
     },1000);
 
     game = setInterval(spawnCat, speed);
 }
 
-/* SOUND */
+/* SOUND FIX */
+let audioCtx;
 function beep(){
-    let ctx = new AudioContext();
-    let o = ctx.createOscillator();
-    o.frequency.value = 500;
-    o.connect(ctx.destination);
+    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    let o = audioCtx.createOscillator();
+    o.connect(audioCtx.destination);
     o.start();
-    o.stop(ctx.currentTime + 0.1);
+    o.stop(audioCtx.currentTime + 0.05);
 }
 
-/* SPAWN CAT */
+/* SPAWN */
 function spawnCat(){
-    const area = document.getElementById("gameArea");
+    if(document.querySelectorAll(".cat").length > 15) return;
 
     const cat = document.createElement("div");
-    cat.classList.add("cat");
+    cat.className = "cat";
 
     let skins = ["🐱","🐈","😺","😻"];
     cat.innerText = skins[Math.floor(Math.random()*skins.length)];
@@ -290,24 +266,23 @@ function spawnCat(){
     cat.style.left = Math.random()*90+"%";
     cat.style.top = Math.random()*80+"%";
 
-    if(score>0 && score%10===0){
+    if(score !== 0 && score % 10 === 0){
         cat.innerText = "🐱👑";
         cat.classList.add("boss");
     }
 
     cat.onclick = ()=>{
         score++;
-        document.getElementById("score").innerText = score;
+        scoreEl.innerText = score;
         beep();
 
-        // particles
         for(let i=0;i<5;i++){
             let p = document.createElement("div");
-            p.classList.add("particle");
-            p.innerText = "✨";
-            p.style.left = cat.style.left;
-            p.style.top = cat.style.top;
-            area.appendChild(p);
+            p.className="particle";
+            p.innerText="✨";
+            p.style.left=cat.style.left;
+            p.style.top=cat.style.top;
+            gameArea.appendChild(p);
             setTimeout(()=>p.remove(),500);
         }
 
@@ -316,8 +291,7 @@ function spawnCat(){
         checkAch();
     };
 
-    area.appendChild(cat);
-
+    gameArea.appendChild(cat);
     setTimeout(()=>cat.remove(),1500);
 }
 
@@ -325,29 +299,23 @@ function spawnCat(){
 function endGame(){
     clearInterval(game);
     clearInterval(timer);
-    updateHigh();
     alert("Game Over! Score: "+score);
 }
 
-/* HIGH SCORE */
+/* HIGH */
 function updateHigh(){
     if(score > high){
         high = score;
         localStorage.setItem("highScore", high);
-        document.getElementById("high").innerText = high;
+        highEl.innerText = high;
     }
 }
 
 /* MUSIC */
 function toggleMusic(){
     let m = document.getElementById("music");
-    if(musicOn){
-        m.pause();
-        musicOn=false;
-    } else {
-        m.play();
-        musicOn=true;
-    }
+    musicOn ? m.pause() : m.play();
+    musicOn = !musicOn;
 }
 
 /* SPEED */
@@ -355,26 +323,29 @@ function setSpeed(v){
     speed = parseInt(v);
 }
 
-/* ACHIEVEMENTS */
+/* ACH */
 function checkAch(){
-    let msg=[];
-
-    if(score>=1 && !unlocked.includes("1")){
-        unlocked.push("1");
-        msg.push("🥉 Starter");
+    if(score>=1 && !unlocked.includes("Starter")){
+        unlocked.push("Starter");
     }
-    if(score>=10 && !unlocked.includes("10")){
-        unlocked.push("10");
-        msg.push("🥈 Hunter");
+    if(score>=10 && !unlocked.includes("Hunter")){
+        unlocked.push("Hunter");
     }
-    if(score>=20 && !unlocked.includes("20")){
-        unlocked.push("20");
-        msg.push("🥇 Master");
+    if(score>=20 && !unlocked.includes("Master")){
+        unlocked.push("Master");
     }
 
-    document.getElementById("achievements").innerText = msg.join(" | ");
+    achievements.innerText = unlocked.join(" | ");
 }
 
+/* SHORTCUTS */
+const scoreEl = document.getElementById("score");
+const timeEl = document.getElementById("time");
+const highEl = document.getElementById("high");
+const gameArea = document.getElementById("gameArea");
+const achievements = document.getElementById("achievements");
+const homeSection = document.getElementById("homeSection");
+const gameSection = document.getElementById("gameSection");
 </script>
 
 </body>
