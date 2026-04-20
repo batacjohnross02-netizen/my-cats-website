@@ -6,6 +6,7 @@
 <title>Tuks & Friends 🐱</title>
 
 <style>
+/* ===== BODY ===== */
 body {
     margin: 0;
     font-family: 'Segoe UI', Arial;
@@ -14,7 +15,7 @@ body {
     overflow-x: hidden;
 }
 
-/* BACKGROUND */
+/* ===== BACKGROUND ===== */
 body::before {
     content: "";
     position: fixed;
@@ -24,12 +25,11 @@ body::before {
     animation: moveBG 20s linear infinite;
     z-index: -1;
 }
-
 @keyframes moveBG {
     100% { transform: translate(-20%, -20%); }
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 header {
     text-align: center;
     padding: 60px 20px;
@@ -54,7 +54,7 @@ header {
     to { text-shadow: 0 0 20px #7aa2ff; }
 }
 
-/* NAV */
+/* ===== NAV ===== */
 nav {
     display: flex;
     justify-content: center;
@@ -80,7 +80,7 @@ nav button:hover {
     color: black;
 }
 
-/* GRID */
+/* ===== CONTENT ===== */
 .container {
     max-width: 1000px;
     margin: auto;
@@ -93,13 +93,14 @@ nav button:hover {
     gap: 15px;
 }
 
-.card img {
+.grid img {
     width: 100%;
     height: 250px;
     object-fit: cover;
+    border-radius: 10px;
 }
 
-/* GAME */
+/* ===== GAME ===== */
 #gameSection { display:none; }
 
 #gameArea {
@@ -117,15 +118,6 @@ nav button:hover {
     cursor:pointer;
 }
 
-.boss {
-    font-size:45px;
-    animation:shake 0.2s infinite;
-}
-
-@keyframes shake {
-    50% { transform: rotate(10deg); }
-}
-
 .panel {
     text-align:center;
     margin:10px;
@@ -138,7 +130,7 @@ nav button:hover {
     border-radius:10px;
 }
 
-/* POPUP */
+/* ===== POPUP ===== */
 #birthdayPopup {
     position:fixed;
     width:100%;
@@ -165,7 +157,7 @@ nav button:hover {
     cursor:pointer;
 }
 
-/* CAKE */
+/* ===== CAKE ===== */
 #cake {
     font-size:80px;
     cursor:pointer;
@@ -173,15 +165,22 @@ nav button:hover {
 }
 #cake:hover { transform:scale(1.2); }
 
+/* ===== CONFETTI ===== */
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
 </style>
 </head>
 
 <body>
 
-<!-- POPUP -->
+<!-- ===== POPUP ===== -->
 <div id="birthdayPopup">
     <div class="popupBox">
         <h1>🎉 Today is Tuks' Birthday! 🎂</h1>
+        <p>Click start to celebrate 🎉</p>
         <button onclick="closePopup()">Start Party 🎉</button>
     </div>
 </div>
@@ -196,6 +195,7 @@ nav button:hover {
 <button onclick="showGame()">🎮 Game</button>
 </nav>
 
+<!-- ===== HOME ===== -->
 <section id="homeSection" class="container">
 <h2>Meet My Cats 🐾</h2>
 
@@ -209,9 +209,9 @@ nav button:hover {
 <div id="cake">🎂</div>
 <p>Click the cake!</p>
 </div>
-
 </section>
 
+<!-- ===== GAME ===== -->
 <section id="gameSection" class="container">
 <h2>🐱 Cat Game</h2>
 
@@ -229,121 +229,132 @@ Time: <span id="time">30</span>
 <div id="leaderboard">
 🏆 High Score: <span id="high">0</span>
 </div>
-
 </section>
 
+<!-- ===== MUSIC ===== -->
 <audio id="birthdayMusic" loop>
 <source src="birthday.mp3">
 </audio>
 
 <script>
+
+/* ===== NAV ===== */
+function showHome(){
+    homeSection.style.display="block";
+    gameSection.style.display="none";
+}
+function showGame(){
+    homeSection.style.display="none";
+    gameSection.style.display="block";
+}
+
+/* ===== POPUP ===== */
+function closePopup(){
+    document.getElementById("birthdayPopup").style.display="none";
+    startMusic();
+    startConfetti();
+}
+
+/* ===== MUSIC ===== */
+let musicStarted=false;
+function startMusic(){
+    if(musicStarted) return;
+    let m=document.getElementById("birthdayMusic");
+    m.play().catch(()=>document.body.onclick=startMusic);
+    musicStarted=true;
+}
+
+/* ===== CONFETTI ===== */
+function startConfetti(){
+    for(let i=0;i<40;i++){
+        let c=document.createElement("div");
+        c.innerText=["🎉","✨","🎊"][Math.floor(Math.random()*3)];
+        c.style.position="fixed";
+        c.style.left=Math.random()*100+"%";
+        c.style.top="-20px";
+        c.style.fontSize="20px";
+        c.style.animation="fall 3s linear";
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),3000);
+    }
+}
+
+/* ===== GAME ===== */
 let score=0,time=30,game,timer;
 let high=localStorage.getItem("highScore")||0;
 document.getElementById("high").innerText=high;
 
-/* NAV */
-function showHome(){homeSection.style.display="block";gameSection.style.display="none";}
-function showGame(){homeSection.style.display="none";gameSection.style.display="block";}
-
-/* POPUP */
-function closePopup(){
-document.getElementById("birthdayPopup").style.display="none";
-startMusic();
-startConfetti();
-}
-
-/* MUSIC */
-let musicStarted=false;
-function startMusic(){
-if(musicStarted)return;
-let m=document.getElementById("birthdayMusic");
-m.play().catch(()=>document.body.onclick=startMusic);
-musicStarted=true;
-}
-
-/* CONFETTI */
-function startConfetti(){
-for(let i=0;i<40;i++){
-let c=document.createElement("div");
-c.innerText=["🎉","✨","🎊"][Math.floor(Math.random()*3)];
-c.style.position="fixed";
-c.style.left=Math.random()*100+"%";
-c.style.top="-20px";
-c.style.fontSize="20px";
-c.style.animation="fall 3s linear";
-document.body.appendChild(c);
-setTimeout(()=>c.remove(),3000);
-}
-}
-
-/* GAME */
 function startGame(){
-score=0;time=30;
-scoreEl.innerText=score;
-timeEl.innerText=time;
-gameArea.innerHTML="";
-clearInterval(game);clearInterval(timer);
+    score=0; time=30;
+    scoreEl.innerText=score;
+    timeEl.innerText=time;
+    gameArea.innerHTML="";
+    clearInterval(game); clearInterval(timer);
 
-timer=setInterval(()=>{
-time--;timeEl.innerText=time;
-if(time<=0)endGame();
-},1000);
+    timer=setInterval(()=>{
+        time--;
+        timeEl.innerText=time;
+        if(time<=0) endGame();
+    },1000);
 
-game=setInterval(spawnCat,700);
+    game=setInterval(spawnCat,700);
 }
 
 function spawnCat(){
-let cat=document.createElement("div");
-cat.className="cat";
-cat.innerText="🐱";
-cat.style.left=Math.random()*90+"%";
-cat.style.top=Math.random()*80+"%";
+    let cat=document.createElement("div");
+    cat.className="cat";
+    cat.innerText="🐱";
+    cat.style.left=Math.random()*90+"%";
+    cat.style.top=Math.random()*80+"%";
 
-cat.onclick=()=>{
-score++;scoreEl.innerText=score;
-cat.remove();
-updateHigh();
-};
+    cat.onclick=()=>{
+        score++;
+        scoreEl.innerText=score;
+        cat.remove();
+        updateHigh();
+    };
 
-gameArea.appendChild(cat);
-setTimeout(()=>cat.remove(),1500);
+    gameArea.appendChild(cat);
+    setTimeout(()=>cat.remove(),1500);
 }
 
 function endGame(){
-clearInterval(game);clearInterval(timer);
-alert("Game Over! Score: "+score);
+    clearInterval(game);
+    clearInterval(timer);
+    alert("Game Over! Score: "+score);
 }
 
 function updateHigh(){
-if(score>high){
-high=score;
-localStorage.setItem("highScore",high);
-highEl.innerText=high;
-}
+    if(score>high){
+        high=score;
+        localStorage.setItem("highScore",high);
+        highEl.innerText=high;
+    }
 }
 
-/* CAKE EXPLOSION */
+/* ===== CAKE ===== */
 document.getElementById("cake").onclick=()=>{
-for(let i=0;i<20;i++){
-let cat=document.createElement("div");
-cat.innerText="🐱";
-cat.style.position="fixed";
-cat.style.left="50%";
-cat.style.top="50%";
-let x=(Math.random()-0.5)*600;
-let y=(Math.random()-0.5)*600;
+    for(let i=0;i<20;i++){
+        let cat=document.createElement("div");
+        cat.innerText="🐱";
+        cat.style.position="fixed";
+        cat.style.left="50%";
+        cat.style.top="50%";
 
-cat.animate([
-{transform:"translate(0,0)",opacity:1},
-{transform:`translate(${x}px,${y}px)`,opacity:0}
-],{duration:1000});
+        let x=(Math.random()-0.5)*600;
+        let y=(Math.random()-0.5)*600;
 
-document.body.appendChild(cat);
-setTimeout(()=>cat.remove(),1000);
-}
+        cat.animate([
+            {transform:"translate(0,0)",opacity:1},
+            {transform:`translate(${x}px,${y}px)`,opacity:0}
+        ],{duration:1000});
+
+        document.body.appendChild(cat);
+        setTimeout(()=>cat.remove(),1000);
+    }
 };
 
-/* SHORTCUTS */
+/* ===== SHORTCUTS ===== */
 const scoreEl=document.getElementById("score");
 const timeEl=document.getElementById("time");
 const highEl=document.getElementById("high");
