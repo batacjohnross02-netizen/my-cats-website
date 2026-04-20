@@ -3,221 +3,214 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tuks & Friends 🐱</title>
+<title>Tuks & Friends</title>
 
 <style>
-/* ===== BODY ===== */
+/* ===== GLOBAL ===== */
 body {
     margin: 0;
-    font-family: 'Segoe UI', Arial;
-    background: #0f1115;
-    color: white;
-    overflow-x: hidden;
-}
-
-/* ===== BACKGROUND ===== */
-body::before {
-    content: "";
-    position: fixed;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, #1a1a2e 0%, #000 100%);
-    animation: moveBG 20s linear infinite;
-    z-index: -1;
-}
-@keyframes moveBG {
-    100% { transform: translate(-20%, -20%); }
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg,#0f172a,#020617);
+    color: #e5e7eb;
 }
 
 /* ===== HEADER ===== */
 header {
     text-align: center;
-    padding: 60px 20px;
-    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    padding: 70px 20px;
 }
 
 .logo {
-    font-size: 2.5em;
-    background: linear-gradient(90deg,#7aa2ff,#fff,#ff7aa2);
+    font-size: 2.8em;
+    font-weight: 600;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg,#7aa2ff,#c084fc);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.birthday {
-    font-size: 1.5em;
-    color: gold;
-    animation: glow 1.5s infinite alternate;
-}
-
-@keyframes glow {
-    from { text-shadow: 0 0 5px #fff; }
-    to { text-shadow: 0 0 20px #7aa2ff; }
+.subtitle {
+    margin-top: 10px;
+    color: #9ca3af;
+    font-size: 1em;
 }
 
 /* ===== NAV ===== */
 nav {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    background: #1a1d24;
-    padding: 10px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    gap: 20px;
+    padding: 15px;
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.05);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 nav button {
-    padding: 10px 15px;
-    border: 1px solid #7aa2ff;
     background: transparent;
-    color: white;
-    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #e5e7eb;
+    padding: 10px 20px;
+    border-radius: 12px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 nav button:hover {
     background: #7aa2ff;
-    color: black;
+    color: #020617;
 }
 
-/* ===== CONTENT ===== */
+/* ===== CONTAINER ===== */
 .container {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: auto;
-    padding: 20px;
+    padding: 40px 20px;
 }
 
+/* ===== CARDS ===== */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+    gap: 20px;
 }
 
-.grid img {
+.card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
     width: 100%;
-    height: 250px;
+    height: 260px;
     object-fit: cover;
-    border-radius: 10px;
+}
+
+/* ===== CAKE ===== */
+#cake {
+    font-size: 70px;
+    margin-top: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#cake:hover {
+    transform: scale(1.1);
 }
 
 /* ===== GAME ===== */
 #gameSection { display:none; }
 
 #gameArea {
-    width:100%;
-    height:350px;
-    background:rgba(255,255,255,0.05);
-    border-radius:15px;
-    position:relative;
-    overflow:hidden;
+    margin-top: 20px;
+    height: 350px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 20px;
+    position: relative;
 }
 
 .cat {
-    position:absolute;
-    font-size:28px;
-    cursor:pointer;
+    position: absolute;
+    font-size: 30px;
+    cursor: pointer;
 }
 
+/* ===== PANEL ===== */
 .panel {
-    text-align:center;
-    margin:10px;
-}
-
-#leaderboard {
-    text-align:center;
-    background:#1a1d24;
-    padding:10px;
-    border-radius:10px;
+    text-align: center;
+    margin: 15px;
+    font-size: 1.1em;
 }
 
 /* ===== POPUP ===== */
 #birthdayPopup {
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.85);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:999;
+    position: fixed;
+    inset: 0;
+    background: rgba(2,6,23,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .popupBox {
-    background:#1a1d24;
-    padding:30px;
-    border-radius:20px;
-    text-align:center;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    padding: 40px;
+    border-radius: 25px;
+    text-align: center;
+    max-width: 400px;
+}
+
+.popupBox h1 {
+    font-weight: 600;
+}
+
+.popupBox p {
+    color: #9ca3af;
 }
 
 .popupBox button {
-    padding:10px 20px;
-    border:none;
-    background:#7aa2ff;
-    border-radius:10px;
-    cursor:pointer;
+    margin-top: 20px;
+    padding: 12px 25px;
+    border-radius: 12px;
+    border: none;
+    background: #7aa2ff;
+    cursor: pointer;
 }
 
-/* ===== CAKE ===== */
-#cake {
-    font-size:80px;
-    cursor:pointer;
-    transition:0.3s;
-}
-#cake:hover { transform:scale(1.2); }
-
-/* ===== CONFETTI ===== */
+/* ===== ANIMATION ===== */
 @keyframes fall {
-    to {
-        transform: translateY(100vh) rotate(360deg);
-    }
+    to { transform: translateY(100vh); }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ===== POPUP ===== -->
+<!-- POPUP -->
 <div id="birthdayPopup">
-    <div class="popupBox">
-        <h1>🎉 Today is Tuks' Birthday! 🎂</h1>
-        <p>Click start to celebrate 🎉</p>
-        <button onclick="closePopup()">Start Party 🎉</button>
-    </div>
+<div class="popupBox">
+<h1>Happy Birthday, Tuks</h1>
+<p>Celebrating another year of joy and companionship.</p>
+<button onclick="closePopup()">Enter</button>
+</div>
 </div>
 
 <header>
-<h1 class="logo">🐱 TUKS & FRIENDS 🐱</h1>
-<h2 class="birthday">🎉 Happy Birthday Tuks! 🎂</h2>
+<h1 class="logo">Tuks & Friends</h1>
+<p class="subtitle">A small collection of moments and a simple interactive experience.</p>
 </header>
 
 <nav>
-<button onclick="showHome()">🏠 Home</button>
-<button onclick="showGame()">🎮 Game</button>
+<button onclick="showHome()">Home</button>
+<button onclick="showGame()">Game</button>
 </nav>
 
-<!-- ===== HOME ===== -->
+<!-- HOME -->
 <section id="homeSection" class="container">
-<h2>Meet My Cats 🐾</h2>
-
 <div class="grid">
-<img src="cats/Tuks.jpg" onerror="this.src='https://placekitten.com/400/300'">
-<img src="cats/Albie.jpg" onerror="this.src='https://placekitten.com/401/300'">
-<img src="cats/Cassie.jpg" onerror="this.src='https://placekitten.com/402/300'">
+<div class="card"><img src="cats/Tuks.jpg" onerror="this.src='https://placekitten.com/400/300'"></div>
+<div class="card"><img src="cats/Albie.jpg" onerror="this.src='https://placekitten.com/401/300'"></div>
+<div class="card"><img src="cats/Cassie.jpg" onerror="this.src='https://placekitten.com/402/300'"></div>
 </div>
 
-<div style="text-align:center;margin-top:20px;">
+<div style="text-align:center">
 <div id="cake">🎂</div>
-<p>Click the cake!</p>
 </div>
 </section>
 
-<!-- ===== GAME ===== -->
+<!-- GAME -->
 <section id="gameSection" class="container">
-<h2>🐱 Cat Game</h2>
-
 <div class="panel">
-Score: <span id="score">0</span> |
-Time: <span id="time">30</span>
+Score: <span id="score">0</span> | Time: <span id="time">30</span>
 </div>
 
 <div class="panel">
@@ -225,142 +218,114 @@ Time: <span id="time">30</span>
 </div>
 
 <div id="gameArea"></div>
-
-<div id="leaderboard">
-🏆 High Score: <span id="high">0</span>
-</div>
 </section>
 
-<!-- ===== MUSIC ===== -->
-<audio id="birthdayMusic" loop>
+<audio id="music" loop>
 <source src="birthday.mp3">
 </audio>
 
 <script>
 
-/* ===== NAV ===== */
+/* NAV */
 function showHome(){
-    homeSection.style.display="block";
-    gameSection.style.display="none";
+homeSection.style.display="block";
+gameSection.style.display="none";
 }
 function showGame(){
-    homeSection.style.display="none";
-    gameSection.style.display="block";
+homeSection.style.display="none";
+gameSection.style.display="block";
 }
 
-/* ===== POPUP ===== */
+/* POPUP */
 function closePopup(){
-    document.getElementById("birthdayPopup").style.display="none";
-    startMusic();
-    startConfetti();
+birthdayPopup.style.display="none";
+startMusic();
+confetti();
 }
 
-/* ===== MUSIC ===== */
-let musicStarted=false;
+/* MUSIC */
 function startMusic(){
-    if(musicStarted) return;
-    let m=document.getElementById("birthdayMusic");
-    m.play().catch(()=>document.body.onclick=startMusic);
-    musicStarted=true;
+document.getElementById("music").play().catch(()=>{});
 }
 
-/* ===== CONFETTI ===== */
-function startConfetti(){
-    for(let i=0;i<40;i++){
-        let c=document.createElement("div");
-        c.innerText=["🎉","✨","🎊"][Math.floor(Math.random()*3)];
-        c.style.position="fixed";
-        c.style.left=Math.random()*100+"%";
-        c.style.top="-20px";
-        c.style.fontSize="20px";
-        c.style.animation="fall 3s linear";
-        document.body.appendChild(c);
-        setTimeout(()=>c.remove(),3000);
-    }
+/* CONFETTI */
+function confetti(){
+for(let i=0;i<30;i++){
+let c=document.createElement("div");
+c.innerText="✨";
+c.style.position="fixed";
+c.style.left=Math.random()*100+"%";
+c.style.top="0";
+c.style.animation="fall 3s linear";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),3000);
+}
 }
 
-/* ===== GAME ===== */
+/* GAME */
 let score=0,time=30,game,timer;
-let high=localStorage.getItem("highScore")||0;
-document.getElementById("high").innerText=high;
 
 function startGame(){
-    score=0; time=30;
-    scoreEl.innerText=score;
-    timeEl.innerText=time;
-    gameArea.innerHTML="";
-    clearInterval(game); clearInterval(timer);
+score=0; time=30;
+scoreEl.innerText=score;
+timeEl.innerText=time;
 
-    timer=setInterval(()=>{
-        time--;
-        timeEl.innerText=time;
-        if(time<=0) endGame();
-    },1000);
+clearInterval(game);
+clearInterval(timer);
 
-    game=setInterval(spawnCat,700);
-}
+timer=setInterval(()=>{
+time--;
+timeEl.innerText=time;
+if(time<=0) clearInterval(timer);
+},1000);
 
-function spawnCat(){
-    let cat=document.createElement("div");
-    cat.className="cat";
-    cat.innerText="🐱";
-    cat.style.left=Math.random()*90+"%";
-    cat.style.top=Math.random()*80+"%";
+game=setInterval(()=>{
+let cat=document.createElement("div");
+cat.className="cat";
+cat.innerText="🐱";
+cat.style.left=Math.random()*90+"%";
+cat.style.top=Math.random()*80+"%";
 
-    cat.onclick=()=>{
-        score++;
-        scoreEl.innerText=score;
-        cat.remove();
-        updateHigh();
-    };
-
-    gameArea.appendChild(cat);
-    setTimeout(()=>cat.remove(),1500);
-}
-
-function endGame(){
-    clearInterval(game);
-    clearInterval(timer);
-    alert("Game Over! Score: "+score);
-}
-
-function updateHigh(){
-    if(score>high){
-        high=score;
-        localStorage.setItem("highScore",high);
-        highEl.innerText=high;
-    }
-}
-
-/* ===== CAKE ===== */
-document.getElementById("cake").onclick=()=>{
-    for(let i=0;i<20;i++){
-        let cat=document.createElement("div");
-        cat.innerText="🐱";
-        cat.style.position="fixed";
-        cat.style.left="50%";
-        cat.style.top="50%";
-
-        let x=(Math.random()-0.5)*600;
-        let y=(Math.random()-0.5)*600;
-
-        cat.animate([
-            {transform:"translate(0,0)",opacity:1},
-            {transform:`translate(${x}px,${y}px)`,opacity:0}
-        ],{duration:1000});
-
-        document.body.appendChild(cat);
-        setTimeout(()=>cat.remove(),1000);
-    }
+cat.onclick=()=>{
+score++;
+scoreEl.innerText=score;
+cat.remove();
 };
 
-/* ===== SHORTCUTS ===== */
+gameArea.appendChild(cat);
+setTimeout(()=>cat.remove(),1500);
+},600);
+}
+
+/* CAKE */
+document.getElementById("cake").onclick=()=>{
+for(let i=0;i<15;i++){
+let c=document.createElement("div");
+c.innerText="🐱";
+c.style.position="fixed";
+c.style.left="50%";
+c.style.top="50%";
+
+let x=(Math.random()-0.5)*500;
+let y=(Math.random()-0.5)*500;
+
+c.animate([
+{transform:"translate(0,0)",opacity:1},
+{transform:`translate(${x}px,${y}px)`,opacity:0}
+],{duration:1000});
+
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),1000);
+}
+};
+
+/* SHORTCUTS */
 const scoreEl=document.getElementById("score");
 const timeEl=document.getElementById("time");
-const highEl=document.getElementById("high");
 const gameArea=document.getElementById("gameArea");
 const homeSection=document.getElementById("homeSection");
 const gameSection=document.getElementById("gameSection");
+const birthdayPopup=document.getElementById("birthdayPopup");
 
 </script>
 
