@@ -6,132 +6,132 @@
 <title>Tuks & Friends</title>
 
 <style>
-/* ===== GLOBAL ===== */
+
+/* ===== RESET ===== */
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
 body {
     margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg,#0f172a,#020617);
-    color: #e5e7eb;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+    background: linear-gradient(180deg,#020617,#0f172a);
+    color: #e2e8f0;
 }
 
 /* ===== HEADER ===== */
 header {
+    padding: 40px 20px 20px;
     text-align: center;
-    padding: 70px 20px;
 }
 
 .logo {
-    font-size: 2.8em;
+    font-size: 2em;
     font-weight: 600;
-    letter-spacing: 1px;
     background: linear-gradient(90deg,#7aa2ff,#c084fc);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
-    margin-top: 10px;
-    color: #9ca3af;
-    font-size: 1em;
-}
-
-/* ===== NAV ===== */
-nav {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 15px;
-    backdrop-filter: blur(10px);
-    background: rgba(255,255,255,0.05);
-    border-top: 1px solid rgba(255,255,255,0.1);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-nav button {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.2);
-    color: #e5e7eb;
-    padding: 10px 20px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-nav button:hover {
-    background: #7aa2ff;
-    color: #020617;
+    font-size: 0.9em;
+    color: #94a3b8;
+    margin-top: 6px;
 }
 
 /* ===== CONTAINER ===== */
 .container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 40px 20px;
+    padding: 15px;
+    padding-bottom: 90px;
 }
 
-/* ===== CARDS ===== */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
-    gap: 20px;
-}
-
+/* ===== GLASS CARD ===== */
 .card {
     background: rgba(255,255,255,0.05);
     backdrop-filter: blur(12px);
-    border-radius: 20px;
-    overflow: hidden;
-    transition: 0.3s;
+    border-radius: 18px;
+    padding: 15px;
+    margin-bottom: 15px;
 }
 
-.card:hover {
-    transform: translateY(-5px);
+/* ===== IMAGE GRID ===== */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
 }
 
-.card img {
+.grid img {
     width: 100%;
-    height: 260px;
+    height: 160px;
     object-fit: cover;
+    border-radius: 12px;
 }
 
 /* ===== CAKE ===== */
 #cake {
-    font-size: 70px;
-    margin-top: 30px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-#cake:hover {
-    transform: scale(1.1);
+    font-size: 60px;
+    text-align: center;
+    margin-top: 15px;
 }
 
 /* ===== GAME ===== */
 #gameSection { display:none; }
 
 #gameArea {
-    margin-top: 20px;
-    height: 350px;
+    width: 100%;
+    height: 300px;
+    border-radius: 15px;
     background: rgba(255,255,255,0.05);
-    border-radius: 20px;
     position: relative;
+    overflow: hidden;
 }
 
 .cat {
     position: absolute;
     font-size: 30px;
-    cursor: pointer;
 }
 
 /* ===== PANEL ===== */
 .panel {
     text-align: center;
-    margin: 15px;
-    font-size: 1.1em;
+    margin: 10px 0;
+    font-size: 1em;
+}
+
+button {
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: none;
+    background: #7aa2ff;
+    color: black;
+    font-weight: 500;
+    width: 100%;
+    margin-top: 8px;
+}
+
+/* ===== BOTTOM NAV ===== */
+nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(15,23,42,0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+nav button {
+    background: none;
+    color: #cbd5f5;
+    font-size: 0.9em;
 }
 
 /* ===== POPUP ===== */
-#birthdayPopup {
+#popup {
     position: fixed;
     inset: 0;
     background: rgba(2,6,23,0.9);
@@ -142,83 +142,72 @@ nav button:hover {
 
 .popupBox {
     background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(20px);
-    padding: 40px;
-    border-radius: 25px;
+    padding: 25px;
+    border-radius: 20px;
     text-align: center;
-    max-width: 400px;
 }
 
-.popupBox h1 {
-    font-weight: 600;
-}
-
-.popupBox p {
-    color: #9ca3af;
-}
-
-.popupBox button {
-    margin-top: 20px;
-    padding: 12px 25px;
-    border-radius: 12px;
-    border: none;
-    background: #7aa2ff;
-    cursor: pointer;
+.popupBox h2 {
+    margin-bottom: 10px;
 }
 
 /* ===== ANIMATION ===== */
 @keyframes fall {
     to { transform: translateY(100vh); }
 }
+
 </style>
 </head>
 
 <body>
 
 <!-- POPUP -->
-<div id="birthdayPopup">
-<div class="popupBox">
-<h1>Happy Birthday, Tuks</h1>
-<p>Celebrating another year of joy and companionship.</p>
-<button onclick="closePopup()">Enter</button>
-</div>
+<div id="popup">
+    <div class="popupBox">
+        <h2>Happy Birthday, Tuks</h2>
+        <p>A small space to celebrate today.</p>
+        <button onclick="startApp()">Continue</button>
+    </div>
 </div>
 
 <header>
-<h1 class="logo">Tuks & Friends</h1>
-<p class="subtitle">A small collection of moments and a simple interactive experience.</p>
+    <div class="logo">Tuks & Friends</div>
+    <div class="subtitle">Moments, memories, and a simple game</div>
 </header>
-
-<nav>
-<button onclick="showHome()">Home</button>
-<button onclick="showGame()">Game</button>
-</nav>
 
 <!-- HOME -->
 <section id="homeSection" class="container">
-<div class="grid">
-<div class="card"><img src="cats/Tuks.jpg" onerror="this.src='https://placekitten.com/400/300'"></div>
-<div class="card"><img src="cats/Albie.jpg" onerror="this.src='https://placekitten.com/401/300'"></div>
-<div class="card"><img src="cats/Cassie.jpg" onerror="this.src='https://placekitten.com/402/300'"></div>
-</div>
+    <div class="card">
+        <div class="grid">
+            <img src="cats/Tuks.jpg" onerror="this.src='https://placekitten.com/400/300'">
+            <img src="cats/Albie.jpg" onerror="this.src='https://placekitten.com/401/300'">
+            <img src="cats/Cassie.jpg" onerror="this.src='https://placekitten.com/402/300'">
+            <img src="cats/Tuks.jpg" onerror="this.src='https://placekitten.com/403/300'">
+        </div>
 
-<div style="text-align:center">
-<div id="cake">🎂</div>
-</div>
+        <div id="cake">🎂</div>
+    </div>
 </section>
 
 <!-- GAME -->
 <section id="gameSection" class="container">
-<div class="panel">
-Score: <span id="score">0</span> | Time: <span id="time">30</span>
-</div>
+    <div class="card">
+        <div class="panel">
+            Score: <span id="score">0</span> |
+            Time: <span id="time">30</span>
+        </div>
 
-<div class="panel">
-<button onclick="startGame()">Start</button>
-</div>
+        <button onclick="startGame()">Start Game</button>
 
-<div id="gameArea"></div>
+        <div id="gameArea"></div>
+    </div>
 </section>
+
+<!-- NAV -->
+<nav>
+    <button onclick="showHome()">🏠 Home</button>
+    <button onclick="showGame()">🎮 Game</button>
+</nav>
 
 <audio id="music" loop>
 <source src="birthday.mp3">
@@ -226,97 +215,93 @@ Score: <span id="score">0</span> | Time: <span id="time">30</span>
 
 <script>
 
+/* START */
+function startApp(){
+    popup.style.display="none";
+    music.play().catch(()=>{});
+    confetti();
+}
+
 /* NAV */
 function showHome(){
-homeSection.style.display="block";
-gameSection.style.display="none";
+    homeSection.style.display="block";
+    gameSection.style.display="none";
 }
 function showGame(){
-homeSection.style.display="none";
-gameSection.style.display="block";
-}
-
-/* POPUP */
-function closePopup(){
-birthdayPopup.style.display="none";
-startMusic();
-confetti();
-}
-
-/* MUSIC */
-function startMusic(){
-document.getElementById("music").play().catch(()=>{});
+    homeSection.style.display="none";
+    gameSection.style.display="block";
 }
 
 /* CONFETTI */
 function confetti(){
-for(let i=0;i<30;i++){
-let c=document.createElement("div");
-c.innerText="✨";
-c.style.position="fixed";
-c.style.left=Math.random()*100+"%";
-c.style.top="0";
-c.style.animation="fall 3s linear";
-document.body.appendChild(c);
-setTimeout(()=>c.remove(),3000);
-}
+    for(let i=0;i<25;i++){
+        let c=document.createElement("div");
+        c.innerText="✨";
+        c.style.position="fixed";
+        c.style.left=Math.random()*100+"%";
+        c.style.top="0";
+        c.style.animation="fall 3s linear";
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),3000);
+    }
 }
 
 /* GAME */
 let score=0,time=30,game,timer;
 
 function startGame(){
-score=0; time=30;
-scoreEl.innerText=score;
-timeEl.innerText=time;
+    score=0; time=30;
+    scoreEl.innerText=score;
+    timeEl.innerText=time;
 
-clearInterval(game);
-clearInterval(timer);
+    clearInterval(game);
+    clearInterval(timer);
 
-timer=setInterval(()=>{
-time--;
-timeEl.innerText=time;
-if(time<=0) clearInterval(timer);
-},1000);
+    timer=setInterval(()=>{
+        time--;
+        timeEl.innerText=time;
+        if(time<=0) clearInterval(timer);
+    },1000);
 
-game=setInterval(()=>{
-let cat=document.createElement("div");
-cat.className="cat";
-cat.innerText="🐱";
-cat.style.left=Math.random()*90+"%";
-cat.style.top=Math.random()*80+"%";
+    game=setInterval(()=>{
+        let cat=document.createElement("div");
+        cat.className="cat";
+        cat.innerText="🐱";
 
-cat.onclick=()=>{
-score++;
-scoreEl.innerText=score;
-cat.remove();
-};
+        cat.style.left=Math.random()*90+"%";
+        cat.style.top=Math.random()*80+"%";
 
-gameArea.appendChild(cat);
-setTimeout(()=>cat.remove(),1500);
-},600);
+        cat.onclick=()=>{
+            score++;
+            scoreEl.innerText=score;
+            cat.remove();
+        };
+
+        gameArea.appendChild(cat);
+        setTimeout(()=>cat.remove(),1200);
+    },600);
 }
 
 /* CAKE */
-document.getElementById("cake").onclick=()=>{
-for(let i=0;i<15;i++){
-let c=document.createElement("div");
-c.innerText="🐱";
-c.style.position="fixed";
-c.style.left="50%";
-c.style.top="50%";
+cake.onclick=()=>{
+    for(let i=0;i<15;i++){
+        let c=document.createElement("div");
+        c.innerText="🐱";
+        c.style.position="fixed";
+        c.style.left="50%";
+        c.style.top="50%";
 
-let x=(Math.random()-0.5)*500;
-let y=(Math.random()-0.5)*500;
+        let x=(Math.random()-0.5)*400;
+        let y=(Math.random()-0.5)*400;
 
-c.animate([
-{transform:"translate(0,0)",opacity:1},
-{transform:`translate(${x}px,${y}px)`,opacity:0}
-],{duration:1000});
+        c.animate([
+            {transform:"translate(0,0)",opacity:1},
+            {transform:`translate(${x}px,${y}px)`,opacity:0}
+        ],{duration:800});
 
-document.body.appendChild(c);
-setTimeout(()=>c.remove(),1000);
-}
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),800);
+    }
 };
 
 /* SHORTCUTS */
@@ -325,7 +310,9 @@ const timeEl=document.getElementById("time");
 const gameArea=document.getElementById("gameArea");
 const homeSection=document.getElementById("homeSection");
 const gameSection=document.getElementById("gameSection");
-const birthdayPopup=document.getElementById("birthdayPopup");
+const popup=document.getElementById("popup");
+const music=document.getElementById("music");
+const cake=document.getElementById("cake");
 
 </script>
 
